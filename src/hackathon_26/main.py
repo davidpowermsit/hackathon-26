@@ -1,4 +1,4 @@
-def foo(bar: str) -> str:
+def main(bar: str) -> str:
     """Summary line.
 
     Extended description of function.
