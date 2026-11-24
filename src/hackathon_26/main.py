@@ -1,4 +1,8 @@
-TARGETS = ["Albert Einstein", "Britney Spears"]
+import wikipediaapi
+
+from hackathon_26 import engine, scoring
+
+TARGETS = ["Ford Mustang", "Blue whale", "Taylor Swift", "Pizza", "Eiffel Tower"]
 
 
 def prompt_int(prompt: str, low: int, high: int) -> int:
@@ -34,9 +38,10 @@ def prompt_keywords(prompt: str) -> list[str]:
         print("Input cannot be empty and remember to seperate with ','.")
 
 
-def display_score(score: int, username: str) -> None:
-    print(f"{username}, your score is in...")
-    print(f"using NO_GUESSES you scored {score}")
+def display_score(status: bool, score: int, username: str, steps: int, total_keys: int) -> None:
+    if status:
+        print(f"Congratulations, {username}. You found the target!")
+    print(f"your scored {score} by using {steps} of your {total_keys} keywords.")
 
 
 def display_into() -> None:
@@ -60,18 +65,24 @@ def display_menu(targets: list[str]) -> int:
 
 
 def run_game(keywords: list[str], target: str) -> int:
+    keywords.append(target)
     return 1
 
 
 def main() -> None:
+
+    wikiclient = wikipediaapi.Wikipedia(user_agent="MSITSEPHACK26 (davidpowermsit@gmail.com)", language="en")
+
     display_into()
     username = prompt_text("Please enter your username: ")
     chosen_target_id = display_menu(TARGETS)
-    print("OK! Lets get started. Enter your keywords. We then wait and see what your score will be.")
+    print("OK! Lets get started.")
+    print("Enter your keywords. We then wait and see what score your chosen keywords gets you!")
     keywords = prompt_keywords("Keywords: ")
-    score: int = run_game(keywords, TARGETS[chosen_target_id])
-    display_score(score, username)
+    status, steps = engine.run(wikiclient, TARGETS[chosen_target_id], keywords)
+    score = scoring.calculate(len(keywords), steps)
+    display_score(status, score, username, steps, len(keywords))
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":
     main()

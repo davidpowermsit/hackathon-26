@@ -17,6 +17,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+dependencies = [
+    "wikipedia-api>=0.16.0",
+]
 
 [project.urls]
 Homepage = "https://davidpowermsit.github.io/hackathon-26/"
@@ -43,7 +46,7 @@ packages = ["src/hackathon_26"]
 
 [tool.mypy]
 files = ["src"]
-mypy_path = "src"
+mypy_path = ["src", "stubs"]
 disallow_untyped_defs = true
 disallow_any_unimported = true
 no_implicit_optional = true
@@ -52,10 +55,16 @@ warn_return_any = true
 warn_unused_ignores = true
 show_error_codes = true
 
+[[tool.mypy.overrides]]
+module = "wikipediaapi.*"             # exception for the stubs only
+disallow_untyped_defs = false
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
 [tool.ruff]
+extend-exclude = ["stubs"]
+force-exclude = true
 target-version = "py310"
 line-length = 120
 fix = true
@@ -102,6 +111,7 @@ ignore = [
     "E731",
     # raise-vanilla-args (long messages outside exception class)
     "TRY003",
+    "SIM113",
 ]
 
 [tool.ruff.lint.per-file-ignores]
