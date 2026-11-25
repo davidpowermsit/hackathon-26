@@ -20,7 +20,6 @@ classifiers = [
 dependencies = [
     "beautifulsoup4>=4.15.0",
     "httpx>=0.28.1",
-    "wikipedia-api>=0.16.0",
 ]
 
 [project.urls]
@@ -48,7 +47,7 @@ packages = ["src/hackathon_26"]
 
 [tool.mypy]
 files = ["src"]
-mypy_path = ["src", "stubs"]
+mypy_path = ["src"]
 disallow_untyped_defs = true
 disallow_any_unimported = true
 no_implicit_optional = true
@@ -57,16 +56,10 @@ warn_return_any = true
 warn_unused_ignores = true
 show_error_codes = true
 
-[[tool.mypy.overrides]]
-module = "wikipediaapi.*"             # exception for the stubs only
-disallow_untyped_defs = false
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
 [tool.ruff]
-extend-exclude = ["stubs"]
-force-exclude = true
 target-version = "py310"
 line-length = 120
 fix = true
