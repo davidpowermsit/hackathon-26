@@ -38,6 +38,9 @@ dev = [
     "ruff>=0.15.7",
 ]
 
+[project.scripts]
+hack26 = "hackathon_26.main:main"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

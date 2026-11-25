@@ -13,11 +13,11 @@ def matching_anchor_text(wiki_page: list[tuple[str, str]], keywords: list[str]) 
 
 def search_page_for_keyword(
     client: Wikibee, wiki_page: list[tuple[str, str]], keywords: list[str]
-) -> tuple[str, list[tuple[str, str]]] | None:
+) -> tuple[str, str, list[tuple[str, str]]] | None:
     matches = matching_anchor_text(wiki_page, keywords)
     if matches:
         page_title, wiki_page = client.go_to_page(matches[0][0])
-        return page_title, wiki_page
+        return page_title, matches[0][1], wiki_page
     return None
 
 
@@ -30,11 +30,12 @@ def run(client: Wikibee, target: str, keywords: list[str]) -> tuple[bool, int]:
         if result is None:
             # Lose
             return False, steps
-        page_title, wiki_page = result
+        page_title, anchor_text, wiki_page = result
         steps += 1
-        if page_title.lower() in keywords:
-            keywords.remove(page_title.lower())
+        # BUG: the anchor_text dosen't always match the new page's title
+        if anchor_text.lower() in keywords:
+            keywords.remove(anchor_text.lower())
 
         # Win check
-        if page_title.lower() == target.lower():
+        if target.lower() in page_title.lower():
             return True, steps

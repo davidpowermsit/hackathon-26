@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup
 
 class Wikibee:
     def go_to_page(self, url: str) -> tuple[str, list[tuple[str, str]]]:
+        """
+        TODO: Is page_title needed, or can we remove it?
+        """
         headers = {"User-Agent": "MSITSEPHACK26 (davidpowermsit@gmail.com)"}
         with httpx.Client(headers=headers, follow_redirects=True) as client:
             response = client.get(url)
