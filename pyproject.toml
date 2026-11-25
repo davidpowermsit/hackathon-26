@@ -18,6 +18,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "httpx>=0.28.1",
     "wikipedia-api>=0.16.0",
 ]
 

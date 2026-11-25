@@ -7,7 +7,7 @@ TARGETS = ["Ford Mustang", "Blue whale", "Taylor Swift", "Pizza", "Eiffel Tower"
 
 def main() -> None:
 
-    wikiclient = wikipediaapi.Wikipedia(user_agent="MSITSEPHACK26 (davidpowermsit@gmail.com)", language="en")
+    wikiclient = wikipediaapi.Wikipedia(user_agent="", language="en")
 
     display.intro()
     username = io.prompt_text("Please enter your username: ")
