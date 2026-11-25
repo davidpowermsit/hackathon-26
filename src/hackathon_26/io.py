@@ -25,7 +25,7 @@ def prompt_keywords(prompt: str) -> list[str]:
     while True:
         value = input(prompt).strip().lower()
         if value:
-            keywords: list[str] = value.split(",")
+            keywords: list[str] = [x.strip() for x in value.split(",")]
             if len(keywords) > 1:
                 return keywords
         print("Input cannot be empty and remember to seperate with ','.")

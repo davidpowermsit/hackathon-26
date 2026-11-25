@@ -32,7 +32,8 @@ def run(client: Wikibee, target: str, keywords: list[str]) -> tuple[bool, int]:
             return False, steps
         page_title, wiki_page = result
         steps += 1
-        keywords.remove(page_title.lower())
+        if page_title.lower() in keywords:
+            keywords.remove(page_title.lower())
 
         # Win check
         if page_title.lower() == target.lower():
