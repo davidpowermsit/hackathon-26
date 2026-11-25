@@ -1,13 +1,13 @@
-import wikipediaapi
-
 from hackathon_26 import display, engine, io, scoring
+from hackathon_26.web import Wikibee
 
 TARGETS = ["Ford Mustang", "Blue whale", "Taylor Swift", "Pizza", "Eiffel Tower", "Aaron Swartz"]
 
 
 def main() -> None:
+    wikiclient = Wikibee()
 
-    wikiclient = wikipediaapi.Wikipedia(user_agent="", language="en")
+    # title, links = wikiclient.go_to_page(MAIN_PAGE)
 
     display.intro()
     username = io.prompt_text("Please enter your username: ")
