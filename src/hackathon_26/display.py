@@ -1,3 +1,5 @@
+from hackathon_26.scoring import Score
+
 WIDTH = 70
 
 INTRO = """\
@@ -19,10 +21,10 @@ def intro() -> None:
     print("*" * WIDTH)
 
 
-def score(status: bool, score: int, username: str, steps: int, total_keys: int) -> None:
+def score(status: bool, score: Score) -> None:
     if status:
-        print(f"Congratulations, {username}. You found the target!")
-    print(f"your scored {score} by using {steps} of your {total_keys} keywords.")
+        print(f"Congratulations, {score.username}. You found the target!")
+    print(f"your scored {score.score} by using {score.steps} of your {score.keywords} keywords.")
 
 
 def menu(targets: list[str]) -> None:
@@ -36,3 +38,10 @@ def keyword_message() -> None:
     print("Last step, enter your keywords.")
     print("Can can take a few seconds to run your keywords through the mazer")
     print("After its finished running you will see your score.")
+
+
+def scoreboard(scores: list[Score]) -> None:
+    print(f"{'Scoreboard':*^WIDTH}")
+    for score in scores:
+        print(f"{score.timestamp} - {score.username} - {score.steps} - {score.score}")
+        print("*" * WIDTH)

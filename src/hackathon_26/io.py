@@ -20,6 +20,15 @@ def prompt_text(prompt: str) -> str:
         print("Input cannot be empty. Please try again.")
 
 
+def prompt_bool(prompt: str) -> str:
+    """Ask until the user enters either y or n."""
+    while True:
+        value = input(prompt).strip().lower()
+        if value in ("y", "n"):
+            return value
+        print("Input must be 'y' or 'n'. Please try again.")
+
+
 def prompt_keywords(prompt: str) -> list[str]:
     """Ask until the user enters a non-empty string."""
     while True:
