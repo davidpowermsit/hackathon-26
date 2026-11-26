@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 class Wikibee:
-    def go_to_page(self, url: str) -> tuple[str, list[tuple[str, str]]]:
+    def get_links_on_page(self, url: str) -> tuple[str, list[tuple[str, str]]]:
         """
         TODO: Is page_title needed, or can we remove it?
         """

@@ -16,13 +16,13 @@ def search_page_for_keyword(
 ) -> tuple[str, str, list[tuple[str, str]]] | None:
     matches = matching_anchor_text(wiki_page, keywords)
     if matches:
-        page_title, wiki_page = client.go_to_page(matches[0][0])
+        page_title, wiki_page = client.get_links_on_page(matches[0][0])
         return page_title, matches[0][1], wiki_page
     return None
 
 
 def run(client: Wikibee, target: str, keywords: list[str]) -> tuple[bool, int]:
-    page_title, wiki_page = client.go_to_page(MAIN_PAGE)
+    page_title, wiki_page = client.get_links_on_page(MAIN_PAGE)
 
     steps: int = 0
     while True:
