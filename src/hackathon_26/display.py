@@ -24,7 +24,9 @@ def intro() -> None:
 def score(status: bool, score: Score) -> None:
     if status:
         print(f"Congratulations, {score.username}. You found the target!")
-    print(f"your scored {score.score} by using {score.steps} of your {score.keywords} keywords.")
+    else:
+        print(f"You got stuck after {score.steps} hop(s) and didn't reach the target.")
+    print(f"You scored {score.score} by using {score.steps} of your {score.keywords} keywords.")
 
 
 def menu(targets: list[str]) -> None:

@@ -16,8 +16,16 @@ class TestCalculate:
     def test_found_target(self, keywords: int, steps: int, expected_score: int) -> None:
         assert calculate(True, keywords, steps) == expected_score
 
-    def test_stuck_scores_zero(self) -> None:
-        assert calculate(False, 3, 2) == 0
+    @pytest.mark.parametrize(
+        ("steps", "expected_score"),
+        [
+            pytest.param(0, 0, id="no_progress"),
+            pytest.param(3, 150, id="fifty_per_hop"),
+            pytest.param(50, 300, id="capped"),
+        ],
+    )
+    def test_stuck_scores_per_hop(self, steps: int, expected_score: int) -> None:
+        assert calculate(False, 8, steps) == expected_score
 
     @pytest.mark.parametrize(
         ("keywords", "steps"),

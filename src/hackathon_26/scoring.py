@@ -3,6 +3,8 @@ from dataclasses import asdict, dataclass, fields
 from pathlib import Path
 
 BASE_SCORE = 1000
+STUCK_POINTS_PER_HOP = 50
+STUCK_MAX_SCORE = 300
 
 SAVE_DIR = Path(__file__).parent / "data"
 scoreboard_path = SAVE_DIR / "scoreboard.csv"
@@ -20,11 +22,11 @@ class Score:
 def calculate(found_target: bool, keywords: int, steps: int) -> int:
     """Score a run. Neither count includes the target itself.
 
-    Getting stuck scores 0. Otherwise the score is the share of the player's
-    keywords that were used.
+    Getting stuck earns a small consolation score per hop made. Otherwise the
+    score is the share of the player's keywords that were used.
     """
     if not found_target:
-        return 0
+        return min(steps * STUCK_POINTS_PER_HOP, STUCK_MAX_SCORE)
     if keywords == 0:
         return BASE_SCORE
     if not 0 <= steps <= keywords:
