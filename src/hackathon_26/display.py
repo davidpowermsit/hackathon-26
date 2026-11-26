@@ -42,9 +42,16 @@ def keyword_message() -> None:
 
 def scoreboard(scores: list[Score]) -> None:
     print(f"{' Scoreboard ':*^{WIDTH}}")
-    if len(scores) > 0:
-        for score in scores:
-            print(f"{score.timestamp} - {score.username} - {score.steps} - {score.score}")
-            print("*" * WIDTH)
-    print(" No Scores Recorded Yet ")
+    if not scores:
+        print(f"{'No Scores Recorded Yet':^{WIDTH}}")
+        print("*" * WIDTH)
+        return
+
+    # define the widths for each row
+    row = "{:>4}  {:<19}  {:<14}  {:>5}  {:>8}  {:>7}"
+
+    print(row.format("Rank", "Date", "Player", "Steps", "Keywords", "Score"))
+    print("-" * WIDTH)
+    for rank, s in enumerate(scores, start=1):
+        print(row.format(rank, s.timestamp[:19], s.username[:14], s.steps, s.keywords, s.score))
     print("*" * WIDTH)
