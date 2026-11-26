@@ -42,15 +42,16 @@ def load() -> list[Score]:
     """Loads all scores from storage and represents them as an object"""
     scoreboard: list[Score] = []
 
-    with open(scoreboard_path) as scoreboard_objt:
+    with open(scoreboard_path, newline="") as scoreboard_objt:
         reader = csv.DictReader(scoreboard_objt)
         for row in reader:
             entry = Score(
-                timestamp=row["timestamp"],
-                username=row["username"],
-                steps=int(row["steps"]),
-                keywords=int(row["keywords"]),
-                score=int(row["score"]),
+                timestamp=row["timestamp"].strip(),
+                username=row["username"].strip(),
+                steps=int(row["steps"].strip()),
+                keywords=int(row["keywords"].strip()),
+                score=int(row["score"].strip()),
             )
             scoreboard.append(entry)
-    return scoreboard
+
+    return sorted(scoreboard, key=lambda x: x.score, reverse=True)

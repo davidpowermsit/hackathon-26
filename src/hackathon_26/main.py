@@ -11,13 +11,13 @@ def main() -> None:
         wikiclient = Wikibee()
 
         display.intro()
-        username = io.prompt_text("Please enter your username: ")
+        username = io.prompt_text("\nPlease enter your username: ")
 
         display.menu(TARGETS)
         chosen_target_id = io.prompt_int("Choose: ", 0, len(TARGETS) - 1)
 
         display.keyword_message()
-        keywords = io.prompt_keywords("Keywords: ")
+        keywords = io.prompt_keywords("\nKeywords: ")
 
         # Target must be in keywords list to make final page jump
         if TARGETS[chosen_target_id] not in keywords:
@@ -45,16 +45,12 @@ def main() -> None:
 
         display.score(status, score)
 
-        print()
-
-        view_scoreboard = io.prompt_bool("Would you like to see the scoreboard? (y/n): ")
+        view_scoreboard = io.prompt_bool("\nWould you like to see the scoreboard? (y/n): ")
         if view_scoreboard == "y":
             data = scoring.load()
             display.scoreboard(data)
 
-        print()
-
-        exit_game = io.prompt_bool("Would you like to play again? (y/n): ")
+        exit_game = io.prompt_bool("\nWould you like to play again? (y/n): ")
         if exit_game == "n":
             break
 

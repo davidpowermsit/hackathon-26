@@ -41,7 +41,10 @@ def keyword_message() -> None:
 
 
 def scoreboard(scores: list[Score]) -> None:
-    print(f"{'Scoreboard':*^WIDTH}")
-    for score in scores:
-        print(f"{score.timestamp} - {score.username} - {score.steps} - {score.score}")
-        print("*" * WIDTH)
+    print(f"{' Scoreboard ':*^{WIDTH}}")
+    if len(scores) > 0:
+        for score in scores:
+            print(f"{score.timestamp} - {score.username} - {score.steps} - {score.score}")
+            print("*" * WIDTH)
+    print(" No Scores Recorded Yet ")
+    print("*" * WIDTH)
