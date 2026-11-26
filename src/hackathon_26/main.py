@@ -25,16 +25,17 @@ def main() -> None:
 
         status, steps = engine.run(wikiclient, TARGETS[chosen_target_id], keywords.copy())
         if status:
-            # target hope dosen't count
+            # target hop dosen't count
             steps = max(0, steps - 1)
-        user_score = scoring.calculate(len(keywords), steps)
+        keywords_used = len(keywords) - 1  # target dosen't count
+        user_score = scoring.calculate(status, keywords_used, steps)
         game_time = datetime.now().strftime("%d.%m.%Y %H:%M")
 
         score = scoring.Score(
             timestamp=game_time,
             username=username,
             steps=steps,
-            keywords=len(keywords) - 1,  # target dosen't count
+            keywords=keywords_used,
             score=user_score,
         )
 

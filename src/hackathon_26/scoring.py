@@ -17,11 +17,19 @@ class Score:
     score: int
 
 
-def calculate(predicted_keywords: int, actual_keywords: int) -> int:
-    if not 0 <= actual_keywords <= predicted_keywords:
-        raise ValueError("actual keywords must be between 1 and the prediction")
-    accuracy = actual_keywords / predicted_keywords
-    return round(BASE_SCORE * accuracy)
+def calculate(found_target: bool, keywords: int, steps: int) -> int:
+    """Score a run. Neither count includes the target itself.
+
+    Getting stuck scores 0. Otherwise the score is the share of the player's
+    keywords that were used.
+    """
+    if not found_target:
+        return 0
+    if keywords == 0:
+        return BASE_SCORE
+    if not 0 <= steps <= keywords:
+        raise ValueError("steps must be between 0 and the number of keywords")
+    return round(BASE_SCORE * steps / keywords)
 
 
 def save(new_user_score: Score) -> None:
